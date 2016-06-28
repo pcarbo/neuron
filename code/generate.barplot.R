@@ -1,26 +1,21 @@
-# TO DO: Explain here what this script does.
+# This script will produce bar graphs from CACNA1C or TCF7L2 phenotype data
 
 ## Script for Single Phenotype Barplotting Based on External Residuals/Raw Data CSV File 
   ## Run the analysis.singlepheno script to obtain the csv used for input into this script
   
   
-# This script will produce bar graphs from CACNA1C or TCF7L2 phenotype data
-  
-# Source all files containing functions needed to perform analysis
 source("misc.R")
 source("read.data.R")
 source("data.manip.R")
 # source("Source/transformation.functions.R")
-# source("Source/misc.R")
 # source("Source/bar.graph.functions.LS.R")
-# source("Source/data.manip.R")
   
-#Default
-# analysis       <- model.info[[phenotype]]
-# transformation <- analysis$transformation
-# covariates     <- unique(analysis$covariates)
-# outliers       <- analysis$outliers
-# out.function   <- analysis$outlier.function
+# Retrieve the analysis settings.
+analysis         <- model.info[[phenotype]]
+transformation   <- analysis$transformation
+covariates       <- unique(analysis$covariates)
+outliers         <- analysis$outliers
+outlier.function <- analysis$outlier.function
   
 #Interactions
 # GENE.STRAIN.INTERACTION <- paste0(GENE, ":strain")
@@ -34,26 +29,27 @@ raw.pheno <- read.pheno(cohort)
 # Generate additional phenotypes.
 prepared.pheno <- create.new.phenotypes(raw.pheno,cohort)
 
+# Change sex into a binary quantity, and other columns into numeric values.
+prepared.pheno$sex         <- factor(prepared.pheno$sex)
+levels(prepared.pheno$sex) <- c(0, 1)
+prepared.pheno$sex         <- as.numeric(prepared.pheno$sex)
+  
+# if (GENE == "CACNA1C") {
+#   a <- c(25, 75:91)
+#   prepared.pheno[, c(25, 76:92)] <- sapply(prepared.pheno[, a], as.numeric)
+# } else if (GENE == "TCF7L2") {
+#   a <- 76:92
+#   prepared.pheno[, 76:92] <- sapply(prepared.pheno[, a], as.numeric)
+# }
+
+# Transform the selected phenotype, if requested.
+if (apply.transform & !is.null(transformation)) {
+  cat("Applying transformation to ",phenotype,".\n",sep="")
+  prepared.pheno[[phenotype]] <- transformation(prepared.pheno[[phenotype]])
+}
+
 stop()
 
-  #Change sex into a binary variable and other columns into numeric
-  prepared.pheno$sex <- factor(prepared.pheno$sex)
-  levels(prepared.pheno$sex) <- c(0, 1)
-  prepared.pheno$sex <- as.numeric(prepared.pheno$sex)
-  
-  if (GENE == "CACNA1C") {
-    a <- c(25, 75:91)
-    prepared.pheno[, c(25, 76:92)] <- sapply(prepared.pheno[, a], as.numeric)
-  } else if (GENE == "TCF7L2") {
-    a <- 76:92
-    prepared.pheno[, 76:92] <- sapply(prepared.pheno[, a], as.numeric)
-  }
-  
-  #Transform
-  if (transform) {
-    prepared.pheno <- transform.pheno(prepared.pheno, phenotype, transformation)
-  }
-  
   #Covariates
   r2 <- sapply (prepared.pheno, FUN = function(x) {
     if (is.numeric(x)) {
