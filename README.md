@@ -18,19 +18,17 @@ Submitted to *Neuron*.
 
 ###License
 
-Copyright (c) 2016, Laura Sittig and Peter Carbonetto.
-
-All the source code in the [code](code) folder is free software: you
-can redistribute it under the terms of the
+All files in the [code](code) folder are free software: you can
+redistribute them under the terms of the
 [GNU General Public License](http://www.gnu.org/licenses/gpl.html). All
-the files in this project are part of *neuron*. This project is
-distributed in the hope that it will be useful, but **without any
+the files in this folder are part of the source code. This source code
+is distributed in the hope that it will be useful, but **without any
 warranty**; without even the implied warranty of **merchantability or
-fitness for a particular purpose**. See file [LICENSE](LICENSE) for
-the full text of the license.
+fitness for a particular purpose**. See file [LICENSE](code/LICENSE)
+for the full text of the license.
 
-All the data files in the [data](data) folder are released to the
-public domain under
+All files in the [data](data) folder are released to the public domain
+under
 [Creative Commons Zero](http://creativecommons.org/publicdomain/zero)
 (CC0) license. To the extent possible under law, the authors have
 waived all copyright and related or neighboring rights to these data.
