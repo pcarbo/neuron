@@ -19,7 +19,6 @@ create.new.phenotypes <- function(pheno, cohort) {
         cbind(pheno,
               binary.from.categorical(group,paste0("group",levels(group))),
               binary.from.categorical(PPIbox,paste0("PPIbox",levels(PPIbox)))))
-    
   } else if (cohort == "cacna1c") {
     cat("Creating (binary) agouti phenotype.\n")
     pheno <- transform(pheno,
@@ -44,17 +43,12 @@ create.new.phenotypes <- function(pheno, cohort) {
 # assigned to each outlying observation
 remove.outliers <- function (pheno, phenotype, covariates,
                              outlier.function, outliers) {
+  cat("Applying remove.outliers to ",phenotype,".\n",sep="")
   
-  # Ensure that GENE is included as a covariate if this isn't WT combined data
-  # (only the WT combined data will have "study" in the phenotype data frame)
-  if (is.null(transformed.pheno$study)) covariates <- union(covariates, GENE)
-  
-  if (verbose) cp0("\n*Starting remove.outliers on ", phenotype, ".\n")
-  
-  # Check if there is an outlier function, if there isn't return the original data
-  # If there is, fix it to account for missing data
+  # Check if there is an outlier function specified. If not, return
+  # the original data. If there is, fix it to account for missing data.
   if (is.null(outlier.function)) {
-    if (verbose) cp0("Did not apply an outlier removal function on ", phenotype, " (none given).\n")
+    cat("No outlier function specified.\n")
   } else { # There is an outlier function
     # Create a function that tells if x is an outlier (takes into account NAs)
     is.outlier <- function(x) {

@@ -1,5 +1,5 @@
-# This file contains a few functions to read and process data stored
-# in text files.
+# This file contains functions to read and process data stored in text
+# files.
 
 # Read Tcf7l2 or Cacna1c cohort phenotype data from a CSV file.
 read.pheno <- function (cohort)

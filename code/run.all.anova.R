@@ -5,7 +5,7 @@ phenotype <- "totalactivity"
 cohort    <- "tcf7l2"
 
 # TO DO: Explain what this means.
-gene <- cohort
+gene <- toupper(cohort)
 
 # TO DO: Explain here what these lines of code are doing.
 source("defaults.tcf7l2.R")

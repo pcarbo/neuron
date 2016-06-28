@@ -1,9 +1,9 @@
+# TO DO: Explain here what this script does.
 # Three-Way ANOVAs for a Single Phenotype
-
 source("misc.R")
+source("transformation.functions.R")
 source("read.data.R")
 source("data.manip.R")
-# source("Source/transformation.functions.R")
 
 # Retrieve the analysis settings.
 analysis       <- model.info[[phenotype]]
@@ -14,11 +14,11 @@ outliers       <- analysis$outliers
 # Ensure that 'gene' is included as a covariate.
 covariates <- union(covariates,gene)
 
-#Interactions
-# GENE.STRAIN.INTERACTION <- paste0(GENE, ":strain")
-# GENE.SEX.INTERACTION    <- paste0(GENE, ":sex") 
-# STRAIN.SEX.INTERACTION  <- paste0("strain:sex")
-# THREE.WAY.INTERACTION   <- paste0(GENE, ":strain:sex")
+# Interaction terms for linear regression.
+gene.strain.interaction <- paste0(gene,":strain")
+gene.sex.interaction    <- paste0(gene,":sex") 
+strain.sex.interaction  <- paste0("strain:sex")
+three.way.interaction   <- paste0(gene,":strain:sex")
 
 # Load the phenotype data.
 raw.pheno <- read.pheno(cohort)
@@ -31,6 +31,8 @@ prepared.pheno$sex         <- factor(prepared.pheno$sex)
 levels(prepared.pheno$sex) <- 0:1
 prepared.pheno$sex         <- as.numeric(prepared.pheno$sex)
 
+# TO DO: Remove these lines of code if they are not needed.
+#
 # if (GENE == "CACNA1C") {
 #   a <- c(25, 75:91)
 #   prepared.pheno[, c(25, 76:92)] <- sapply(prepared.pheno[, a], as.numeric)
@@ -45,29 +47,22 @@ if (!is.null(transformation)) {
   prepared.pheno[[phenotype]] <- transformation(prepared.pheno[[phenotype]])
 }
 
-stop()
-
-prepared.pheno <- remove.outliers(prepared.pheno,phenotype,covariates,
-                                  NULL,outliers,verbose = TRUE)
-
-stop()
-
+# Remove specified outlying data points.
+if (length(outliers) > 0) {
+  to.remove <- match(outliers,prepared.pheno$id)
+  prepared.pheno[to.remove,phenotype] <- NA
+  cat("Removed ",length(to.remove)," outliers for ",phenotype,".\n",sep="")
+}
   
-  # From the full data set, extract out columns corresponding to ID, strain, phenotype, and covariate(s)
-  model.data <- trans.out.rm.pheno[, c("id", "strain", "sex", phenotype, covariates)]
-  
-  # Fit the model: phenotype ~ covariates + strain + GENE.INTERACTION
-  GENE.INTERACTION <- paste(GENE.STRAIN.INTERACTION, "+", GENE.SEX.INTERACTION, "+", STRAIN.SEX.INTERACTION, "+", THREE.WAY.INTERACTION)
-  
-  string.formula <- 
-    paste(phenotype, "~", paste(covariates, collapse = " + "), "+ strain +", "sex +", GENE.INTERACTION)
-  f <- as.formula(string.formula)
-  g <- lm(f, model.data)
-  
-out <- anova(g)
-
-anova.results <- run.anova(prepared.pheno, phenotype, covariates)
-print(anova.results)
-anova.results[["Pr(>F)"]]
-
-
+# Fit a linear regression model for phenotype ~ covariates + strain +
+# interaction terms.
+cat("Fitting linear regression and running ANOVA.\n")
+gene.interaction <-
+  paste(gene.strain.interaction,"+",gene.sex.interaction,"+",
+        strain.sex.interaction,"+",three.way.interaction)
+f <- paste(phenotype,"~",paste(covariates,collapse=" + "),
+           "+ strain + sex +",gene.interaction)
+f <- as.formula(f)
+g <- lm(f,prepared.pheno)
+out.anova <- anova(g)
+print(out.anova)
