@@ -1,3 +1,4 @@
+# TO DO: Explain here what this script does.
 
 ###########################################################################################
   # Specify a phenotype, what kind of data to use ("raw" or "residual"), and whether or not to normalize the data (TRUE or FALSE)
