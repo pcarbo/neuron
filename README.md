@@ -42,29 +42,29 @@ waived all copyright and related or neighboring rights to these data.
 
 ### Physiological and behavioral trait data
 
-*Description goes here.*
+*Description of data files goes here.*
 
 ### R scripts implementing data analyses
 
-*Description goes here.*
+*Description of R scripts goes here.*
 
 ### Contact info
 
 For questions and feedback, please contact:
 
-Laura Sittig
-Department of Psychiatry
+Laura Sittig<br>
+Department of Psychiatry<br>
 University of California, San Diego
-9500 Gilman Drive
-La Jolla, California, USA
+9500 Gilman Drive<br>
+La Jolla, California, USA<br>
 lsittig@ucsd.edu
 
 ### Contributors
 
-Laura J. Sittig
-Peter Carbonetto
-Kyle A. Engel
-Kathleen S. Krauss
-Camila Barrios-Camacho
+Laura J. Sittig<br>
+Peter Carbonetto<br>
+Kyle A. Engel<br>
+Kathleen S. Krauss<br>
+Camila Barrios-Camacho<br>
 Abraham A. Palmer
 
