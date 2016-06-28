@@ -1,26 +1,26 @@
 # neuron
 
-Code and data implementing statistical analyses for Neuron manuscript,
-"Should single strains suffice?"
+Code and data implementing statistical analyses for *Neuron*
+manuscript, "Should single strains suffice?"
 
 ### Overview
 
+*Give overview of repository here*
+
 ### Citing this repository
 
-If the data or code contained in this repository is useful for your
-research project, please cite our paper:
+If the data or code in this repository is useful for your research
+project, please cite our paper:
 
-L. J. Sittig, P. Carbonetto1, K. A. Engel, K. S. Krauss, C.
-Barrios-Camacho and A. A. Palmer. Should single strains suffice?
+L. J. Sittig, P. Carbonetto, K. A. Engel, K. S. Krauss, C.
+Barrios-Camacho & A. A. Palmer. Should single strains suffice?
 Submitted to *Neuron*.
 
 ###License
 
 Copyright (c) 2016, Laura Sittig and Peter Carbonetto.
 
-The source code in the *neuron* repository by
-[Laura Sittig](http://scholar.google.com/citations?user=gNIQ8zgAAAAJ)
-and [Peter Carbonetto](http://github.com/pcarbo) is free software: you
+All the source code in the [code](code) folder is free software: you
 can redistribute it under the terms of the
 [GNU General Public License](http://www.gnu.org/licenses/gpl.html). All
 the files in this project are part of *neuron*. This project is
@@ -28,6 +28,12 @@ distributed in the hope that it will be useful, but **without any
 warranty**; without even the implied warranty of **merchantability or
 fitness for a particular purpose**. See file [LICENSE](LICENSE) for
 the full text of the license.
+
+All the data files in the [data](data) folder are released to the
+public domain under
+[Creative Commons Zero](http://creativecommons.org/publicdomain/zero)
+(CC0) license. To the extent possible under law, the authors have
+waived all copyright and related or neighboring rights to these data.
 
 ### Contents
 
