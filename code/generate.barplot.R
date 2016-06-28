@@ -7,7 +7,9 @@
 # This script will produce bar graphs from CACNA1C or TCF7L2 phenotype data
   
 # Source all files containing functions needed to perform analysis
+source("misc.R")
 source("read.data.R")
+source("data.manip.R")
 # source("Source/transformation.functions.R")
 # source("Source/misc.R")
 # source("Source/bar.graph.functions.LS.R")
@@ -29,11 +31,11 @@ source("read.data.R")
 # Load the phenotype data.
 raw.pheno <- read.pheno(cohort)
 
+# Generate additional phenotypes.
+prepared.pheno <- create.new.phenotypes(raw.pheno,cohort)
+
 stop()
 
-  # Prepare data by creating new phenotypes
-  prepared.pheno <- create.new.phenotypes(raw.pheno,cohort)
-  
   #Change sex into a binary variable and other columns into numeric
   prepared.pheno$sex <- factor(prepared.pheno$sex)
   levels(prepared.pheno$sex) <- c(0, 1)

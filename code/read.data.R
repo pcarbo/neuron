@@ -31,4 +31,3 @@ read.pheno <- function (cohort)
                      ppibox  = factor(ppibox)))
   } else
     error("Choice of cohort is not valid.")
-

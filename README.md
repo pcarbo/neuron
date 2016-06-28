@@ -5,7 +5,7 @@ manuscript, "Should single strains suffice?"
 
 ### Overview
 
-*Give overview of repository here*
+*Give overview of repository here.*
 
 ### Citing this repository
 
@@ -16,7 +16,7 @@ L. J. Sittig, P. Carbonetto, K. A. Engel, K. S. Krauss, C.
 Barrios-Camacho & A. A. Palmer. Should single strains suffice?
 Submitted to *Neuron*.
 
-###License
+###Code and data licenses
 
 All files in the [code](code) folder are free software: you can
 redistribute them under the terms of the
