@@ -28,7 +28,7 @@ prepared.pheno <- create.new.phenotypes(raw.pheno,cohort)
 
 # Change sex into a binary quantity, and other columns into numeric values.
 prepared.pheno$sex         <- factor(prepared.pheno$sex)
-levels(prepared.pheno$sex) <- c(0, 1)
+levels(prepared.pheno$sex) <- 0:1
 prepared.pheno$sex         <- as.numeric(prepared.pheno$sex)
 
 # if (GENE == "CACNA1C") {
@@ -40,10 +40,12 @@ prepared.pheno$sex         <- as.numeric(prepared.pheno$sex)
 # }
 
 # Transform the selected phenotype, if requested.
-if (apply.transform & !is.null(transformation)) {
+if (!is.null(transformation)) {
   cat("Applying transformation to ",phenotype,".\n",sep="")
   prepared.pheno[[phenotype]] <- transformation(prepared.pheno[[phenotype]])
 }
+
+stop()
 
 prepared.pheno <- remove.outliers(prepared.pheno,phenotype,covariates,
                                   NULL,outliers,verbose = TRUE)
