@@ -11,6 +11,9 @@ transformation <- analysis$transformation
 covariates     <- unique(analysis$covariates)
 outliers       <- analysis$outliers
 
+# Ensure that 'gene' is included as a covariate.
+covariates <- union(covariates,gene)
+
 #Interactions
 # GENE.STRAIN.INTERACTION <- paste0(GENE, ":strain")
 # GENE.SEX.INTERACTION    <- paste0(GENE, ":sex") 
@@ -42,16 +45,11 @@ if (apply.transform & !is.null(transformation)) {
   prepared.pheno[[phenotype]] <- transformation(prepared.pheno[[phenotype]])
 }
 
+prepared.pheno <- remove.outliers(prepared.pheno,phenotype,covariates,
+                                  NULL,outliers,verbose = TRUE)
+
 stop()
 
-out <- analysis$outliers
-prepared.pheno <- remove.outliers(prepared.pheno, phenotype, covariates, outlier.function = NULL, out, verbose = TRUE)
-
-#Perform 3-Way ANOVA
-run.anova <- function(trans.out.rm.pheno, phenotype, covariates) {
-  
-  # Ensure that GENE is included as a covariate
-  covariates <- union(covariates, GENE)
   
   # From the full data set, extract out columns corresponding to ID, strain, phenotype, and covariate(s)
   model.data <- trans.out.rm.pheno[, c("id", "strain", "sex", phenotype, covariates)]
@@ -64,10 +62,10 @@ run.anova <- function(trans.out.rm.pheno, phenotype, covariates) {
   f <- as.formula(string.formula)
   g <- lm(f, model.data)
   
-  return(anova(g))
-}
+out <- anova(g)
 
 anova.results <- run.anova(prepared.pheno, phenotype, covariates)
 print(anova.results)
-anova.results$"Pr(>F)"
+anova.results[["Pr(>F)"]]
+
 

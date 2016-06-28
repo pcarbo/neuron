@@ -1,7 +1,7 @@
-# This file contains a list which specifies the default analysis
-# settings for each phenotype recorded in the Tcf7l2 cohort:
+# This list specifies the default analysis settings for each phenotype
+# analyzed in the Tcf7l2 cohort:
 #
-#   (a) tranformation function
+#   (a) transformation function
 #   (b) covariate names
 #   (c) outlier removal function
 #   (d) specified outliers
@@ -55,8 +55,8 @@ model.info.tcf7l2 <- list(
     outliers         = c(50927,51015,52406,53181,53250,53278,53431,53487)),
   
   centerduration = list(
-    transformation   =
-      function (x) logit10(project.onto.interval(x/400,0.001,0.999)),
+    transformation   = function(x) logit10(project.onto.interval(x/400,0.001,
+                                                                 0.999)),
     covariates       = "sex",
     outlier.function = function (x) x < (-1.4) | x > 1.5,
     outliers         = c(50985,51019,51021,52446,53196,53217,53420,
