@@ -24,10 +24,10 @@ read.pheno <- function (cohort)
     out <- read.csv("../data/pheno.cacna1c.csv",header = TRUE,
                     check.names = FALSE,as.is = "CACNA1C")
     
+    # Manually convert some of the table columns to factors.
     cat("Converting some phenotype table columns to factors.\n")
     return(transform(out,
                      CACNA1C = factor(CACNA1C,c("WT","HET")),
-                     oftbox  = factor(oftbox),
                      ppibox  = factor(ppibox)))
   } else
     error("Choice of cohort is not valid.")

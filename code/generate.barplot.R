@@ -14,11 +14,11 @@ source("read.data.R")
 # source("Source/data.manip.R")
   
 #Default
-analysis       <- model.info[[phenotype]]
-transformation <- analysis$transformation
-covariates     <- unique(analysis$covariates)
-outliers       <- analysis$outliers
-out.function   <- analysis$outlier.function
+# analysis       <- model.info[[phenotype]]
+# transformation <- analysis$transformation
+# covariates     <- unique(analysis$covariates)
+# outliers       <- analysis$outliers
+# out.function   <- analysis$outlier.function
   
 #Interactions
 # GENE.STRAIN.INTERACTION <- paste0(GENE, ":strain")
@@ -32,7 +32,7 @@ raw.pheno <- read.pheno(cohort)
 stop()
 
   # Prepare data by creating new phenotypes
-  prepared.pheno <- create.new.phenotypes(raw.pheno, GENE = GENE)
+  prepared.pheno <- create.new.phenotypes(raw.pheno,cohort)
   
   #Change sex into a binary variable and other columns into numeric
   prepared.pheno$sex <- factor(prepared.pheno$sex)
