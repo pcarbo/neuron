@@ -58,7 +58,12 @@ waived all copyright and related or neighboring rights to these data.
 ### Contents
 
 1. [README.md](README.md): this file.
-2. 
+
+2. [data/pheno.tcf7l2.csv](pheno.tcf7l2.csv): physiological and
+behavioural phenotype data collected in *Tcf7l2* cohort.
+
+3. [data/pheno.cacna1c.csv](pheno.cacna1c.csv): physiological and
+behavioural phenotype data collected in *Cacna1c* cohort.
 
 ### Physiological and behavioral trait data
 
@@ -74,7 +79,7 @@ For questions and feedback, please contact:
 
 Laura Sittig<br>
 Department of Psychiatry<br>
-University of California, San Diego
+University of California, San Diego<br>
 9500 Gilman Drive<br>
 La Jolla, California, USA<br>
 lsittig@ucsd.edu
