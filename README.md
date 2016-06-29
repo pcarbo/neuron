@@ -16,17 +16,18 @@ cohorts of mice, one for the *Cacna1c* null allele (*n* = 723) and one
 for the *Tcf7l2* null allele (*n* = 630).
 
 We collected a variety of physiological and behavioral phenotype data
-for each of these panels. Mice in the Cacna1c cohort were tested for
+for each of these panels. Mice in the *Cacna1c* cohort were tested for
 anxiety, methamphetamine sensitivity, depression-like behavior, and
-acoustic startle response. Mice in the Tcf7l2 cohort were tested for
+acoustic startle response. Mice in the *Tcf7l2* cohort were tested for
 several behavioral traits: anxiety, fear conditioning, and
 sensorimotor gating, as well as several metabolic traits: body weight,
 baseline blood glucose and fasting blood glucose. In total, we
-obtained data for 15 phenotypes, 12 of which are behavioral.
+obtained data for 15 phenotypes, 12 of which are behavioral. These
+data are stored in CSV files in the [data](data) folder.
 
-The R code implements ANOVA analyses to assesses the phenotypic
-effects of two null alleles when expressed on an F1 cross between
-C57BL/6J and different inbred strains.
+The R scripts in the [code](code) folder implement analyses to assess
+and summarize the phenotypic effects of two null alleles expressed
+from crosses of different inbred strains.
 
 ### Citing this repository
 
