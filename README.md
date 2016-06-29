@@ -59,10 +59,10 @@ waived all copyright and related or neighboring rights to these data.
 
 1. [README.md](README.md): this file.
 
-2. [data/pheno.tcf7l2.csv](pheno.tcf7l2.csv): physiological and
+2. [pheno.tcf7l2.csv](data/pheno.tcf7l2.csv): physiological and
 behavioural phenotype data collected in *Tcf7l2* cohort.
 
-3. [data/pheno.cacna1c.csv](pheno.cacna1c.csv): physiological and
+3. [pheno.cacna1c.csv](data/pheno.cacna1c.csv): physiological and
 behavioural phenotype data collected in *Cacna1c* cohort.
 
 ### Physiological and behavioral trait data
