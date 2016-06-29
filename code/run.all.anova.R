@@ -1,4 +1,5 @@
-# Generates the ANOVA results for all selected phenotypes.
+# Generates the ANOVA results for all phenotypes analyzed in the
+# Tcf7l2 and Cacna1c cohorts.
 source("defaults.tcf7l2.R")
 source("defaults.cacna1c.R")
 
