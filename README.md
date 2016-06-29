@@ -60,10 +60,28 @@ waived all copyright and related or neighboring rights to these data.
 1. [README.md](README.md): this file.
 
 2. [pheno.tcf7l2.csv](data/pheno.tcf7l2.csv): physiological and
-behavioural phenotype data collected in *Tcf7l2* cohort.
+behavioural phenotype data collected in *Tcf7l2* cohort. Read below
+for details.
 
 3. [pheno.cacna1c.csv](data/pheno.cacna1c.csv): physiological and
-behavioural phenotype data collected in *Cacna1c* cohort.
+behavioural phenotype data collected in *Cacna1c* cohort. Read below
+for details
+
+4. [read.data.R](code/read.data.R):
+
+5. [transformation.functions.R](code/transformation.functions.R): 
+
+6. [data.manip.R](code/data.manip.R):
+
+7. [misc.R](code/misc.R):
+
+8. [defaults.tcf7l2.R](code/defaults.tcf7l2.R):
+
+9. [defaults.cacna1c.R](code/defaults.cacna1c.R):
+
+10. [run.all.anova.R](code/run.all.anova.R):
+
+11. [run.anova.analysis.R](code/run.anova.analysis.R):
 
 ### Physiological and behavioral trait data
 
