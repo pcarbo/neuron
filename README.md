@@ -98,7 +98,66 @@ ANOVA for a single phenotype.
 
 ### Physiological and behavioral trait data
 
-*Description of data files goes here.*
+File [pheno.tcf7l2.csv](data/pheno.tcf7l2.csv) contains physiological
+and behavioural phenotype data collected for 630 F1 mice from the
+*Tcf7l2* cohort.  All mice are males. The data are stored in
+comma-delimited ("csv") format, with one line per sample. Missing
+entries are marked as "NA", following the convention used in R. Use R
+function read.pheno in file [read.data.R](code/read.data.R) to read
+these data into an R data frame.
+
+This table includes the following columns:
+
++ id: Unique number assigned to each mouse.
+
++ strain: The mother of this mouse is from this inbred mouse stock. In
+all cases, the father is a C57BL/6J (B6) mouse. This is an
+abbreviation of standard inbred strain id.
+
++ sex: gender of mouse (M = male, F = female)
+
++ TCF7L2: whether the *Tcf7l2* gene functions normally (WT), or only
+partially functions (HET).
+
++ bw2: Body weight (in g) measured on day 50 of testing.
+
++ bw3: Body weight (in g) measured on day 100 of testing.
+
++ centerduration: Trait measured during open field testing.
+
++ totalactivity: Trait measured for open field testing.
+
++ FCtimeofday: Time of day in which fear conditioning tests were
+conducted (either "AM" or "PM").
+
++ d1tone: Average proportion of freezing on day 1 of the conditioned
+fear tests during the two 30-second intervals (180-210 seconds and
+240-270 seconds) after exposure to the conditioned stimulus.
+
++ d2context: Average proportion of freezing over the 30-180 second
+interval in response to the test chamber on day 2 of the conditioned
+fear tests.
+
++ d3tone: Average proportion of freezing on day 3 of the conditioned
+fear tests during the two 30-second intervals (180-210 seconds and
+240-270 seconds) after exposure to the conditioned stimulus.
+
++ PPIbox: Apparatus used for PPI behavioral testing.
+
++ PPI6: Average of the inhibition intensity, taken as the ratio of the
+prepulse response during 6-dB prepulse trials over the pulse-alone
+startle amplitude.
+
++ PPIstartle: Average startle response during the pulse-alone
+trials (with 120-dB pulses).
+
++ immobdur: Trait measured during the forced swim tests (FST). Defined
+as the amount of time in which the mouse is stationary in the water
+("immobility").
+  
++ fastglucose: Glucose level measured after fasting for 16 hours.
+
++ baseglucose: Baseline glucose level.
 
 ### R scripts implementing data analyses
 
