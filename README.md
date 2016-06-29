@@ -5,7 +5,28 @@ manuscript, "Should single strains suffice?"
 
 ### Overview
 
-*Give overview of repository here.*
+This repository contains code and data reproducing our analyses of
+null allele effects in an F1 panel of 30 inbred strains.
+
+Each F1 panel was obtained by breeding +/- C57BL/6J males with +/+
+females from 30 inbred strains. This produced a panel of +/+ and +/-
+littermates that are isogenic at genetic loci other than the target
+allele. This breeding design was used to independently generate two
+cohorts of mice, one for the *Cacna1c* null allele (*n* = 723) and one
+for the *Tcf7l2* null allele (*n* = 630).
+
+We collected a variety of physiological and behavioral phenotype data
+for each of these panels. Mice in the Cacna1c cohort were tested for
+anxiety, methamphetamine sensitivity, depression-like behavior, and
+acoustic startle response. Mice in the Tcf7l2 cohort were tested for
+several behavioral traits: anxiety, fear conditioning, and
+sensorimotor gating, as well as several metabolic traits: body weight,
+baseline blood glucose and fasting blood glucose. In total, we
+obtained data for 15 phenotypes, 12 of which are behavioral.
+
+The R code implements ANOVA analyses to assesses the phenotypic
+effects of two null alleles when expressed on an F1 cross between
+C57BL/6J and different inbred strains.
 
 ### Citing this repository
 
