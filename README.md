@@ -112,48 +112,47 @@ This table includes the following columns:
 
 + id: Unique number assigned to each mouse.
 
-+ strain: The mother of this mouse is from this inbred mouse stock. In
-all cases, the father is a C57BL/6J (B6) mouse. This is an
-abbreviation of standard inbred strain id.
++ strain: Inbred strain representing the mother of the F1 mouse. This
+is an abbreviation of standard inbred strain id.
 
-+ sex: gender of mouse (M = male, F = female)
++ sex: gender of mouse (M = male, F = female).
 
-+ TCF7L2: whether the *Tcf7l2* gene functions normally (WT), or only
-partially functions (HET).
++ TCF7L2: WT means wild-type (+/+), and HET means heterozygous (+/-).
 
-+ CACNA1C: whether the *Cacna1c* gene functions normally (WT), or only
-partially functions (HET).
++ CACNA1C: WT means wild-type (+/+), and HET means heterozygous (+/-).
 
-+ bw2, d50bw: Body weight (in g) measured on day 50 of testing.
++ bw2, d50bw: Body weight (in g) measured on day 50 of age.
 
-+ bw3: Body weight (in g) measured on day 100 of testing.
++ bw3: Body weight (in g) measured on day 100 of age.
 
-+ fastglucose: Glucose level measured after fasting for 16 hours.
++ fastglucose: Blood glucose level measured after fasting for 16 hours.
 
-+ baseglucose: Baseline glucose level.
++ baseglucose: Baseline blood glucose level.
 
-+ centerduration: Duration in center of field during open field
-testing.
++ centerduration, d1centerdur: Duration in center of field during open
+field testing.
 
-+ d1centerdur: *Description of this phenotype goes here.*
++ pctdurlight: Proportion of total time spent in the light half of the
+light/dark box.
 
-+ pctdurlight: *Description of this phenotype goes here.*
++ totalactivity: Total activity measured during the 30-min open field
+test.
 
-+ totalactivity: Total activity measured on day 2 during the 30-min
++ d1totalactivity: Total activity measured during day 1 of the 30-min
 open field test.
 
-+ d1totalactivity: *Description of this phenotype goes here.*
++ d2totalactivity: Total activity measured during day 2 of the 30-min
+open field test.
 
-+ d2totalactivity: *Description of this phenotype goes here.*
++ d3.d2totalactivity: Total activity measured on day 3 of the 30-min
+open field test, after methamphetamine injection.
 
-+ d3.d2totalactivity: *Description of this phenotype goes here.*
-
-+ FCtimeofday: Time of day in which fear conditioning tests were
++ FCtimeofday: Time of day in which fear conditioning test was
 conducted (either "AM" or "PM").
 
 + d1tone: Average proportion of freezing on day 1 of the conditioned
 fear tests during the two 30-second intervals (180-210 seconds and
-240-270 seconds) after exposure to the conditioned stimulus.
+240-270 seconds) before exposure to the unconditioned stimulus.
 
 + d2context: Average proportion of freezing over the 30-180 second
 interval in response to the test chamber on day 2 of the conditioned
@@ -161,7 +160,7 @@ fear tests.
 
 + d3tone: Average proportion of freezing on day 3 of the conditioned
 fear tests during the two 30-second intervals (180-210 seconds and
-240-270 seconds) after exposure to the conditioned stimulus.
+240-270 seconds).
 
 + PPIbox: Apparatus used for PPI behavioral testing.
 
@@ -172,9 +171,8 @@ startle amplitude.
 + PPIstartle, startle: Average startle response during the pulse-alone
 trials (with 120-dB pulses).
 
-+ immobdur: Trait measured during the forced swim tests. Defined as
-the amount of time in which the mouse is stationary in the water
-("immobility").
++ immobdur: Amount of time (in seconds) spent immobile during the
+forced swim test.
 
 ### R scripts implementing data analyses
 
