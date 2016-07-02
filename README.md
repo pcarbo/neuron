@@ -150,17 +150,17 @@ open field test, after methamphetamine injection.
 + FCtimeofday: Time of day in which fear conditioning test was
 conducted (either "AM" or "PM").
 
-+ d1tone: Average proportion of freezing on day 1 of the conditioned
-fear tests during the two 30-second intervals (180-210 seconds and
-240-270 seconds) before exposure to the unconditioned stimulus.
++ d1tone: Average proportion of freezing to the tone during the two
+30-second intervals (180-210 seconds and 240-270 seconds) on day 1
+of the conditioned fear tests.
 
-+ d2context: Average proportion of freezing over the 30-180 second
-interval in response to the test chamber on day 2 of the conditioned
++ d2context: Average proportion of freezing in response to the test
+chamber over the 30-180 second interval on day 2 of the conditioned
 fear tests.
 
-+ d3tone: Average proportion of freezing on day 3 of the conditioned
-fear tests during the two 30-second intervals (180-210 seconds and
-240-270 seconds).
++ d3tone: Average proportion of freezing to the tone during the two
+30-second intervals (180-210 seconds and 240-270 seconds) on day 3
+of the conditioned fear tests.
 
 + PPIbox: Apparatus used for PPI behavioral testing.
 
