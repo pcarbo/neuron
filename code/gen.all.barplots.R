@@ -19,7 +19,7 @@ for (cohort in c("tcf7l2","cacna1c")) {
     cat("COHORT: ",toupper(cohort),", PHENOTYPE: ",toupper(phenotype),"\n",
         sep="")
     source("generate.barplot.R")
-    dev.copy2(file = paste0(cohort,".",phenotype,".pdf"))
+    dev.copy2pdf(file = paste0(cohort,".",phenotype,".pdf"))
     Sys.sleep(0.01)
     cat("Press return to continue...\n")
     readLines("stdin",n = 1)
