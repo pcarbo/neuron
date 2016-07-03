@@ -71,15 +71,18 @@ if (gene == "TCF7L2") {
 }
   
 # Generate the bar chart using ggplot2.
-r <- pheno.stats
+r        <- pheno.stats
 names(r) <- c("gene","x","n","y","sd","se")
+r        <- r[order(r$gene,r$x),]
+r        <- cbind(r,data.frame(sig = c(t.test.stats$sig,rep(" ",n))))
 levels(r$gene) <- c("+/+","+/-")
-print(ggplot(r,aes(x,y,fill = gene)) +
+print(ggplot(r,aes(x,y,fill = gene,label = sig)) +
       geom_bar(stat = "identity",position = position_dodge(width = 0.9),
                color = "black",size = 0.3) +
       geom_errorbar(aes(ymin = y - se, ymax = y + se),
                     position = position_dodge(width = 0.9),width = 0.4,
                     size = 0.3) +
+      geom_text(aes(y = y + 0.05*diff(range(r$y)) + se),size = 4) +
       scale_fill_manual(values = c("darkblue","lightgray")) +
       theme_minimal() +
       theme(panel.grid.minor = element_blank(),
@@ -91,9 +94,3 @@ print(ggplot(r,aes(x,y,fill = gene)) +
       labs(x    = "maternal strain",
            y    = phenotype,
            fill = legend.title))
-
-stop()
-  
-  # Create significance level annotations
-  annotations <- annotate.significance(formatted.data, t.test.data, xaxis.order, phenotype,
-                                       normalized = normalized, mult.factor = 1.05)
