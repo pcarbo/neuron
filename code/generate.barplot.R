@@ -4,6 +4,7 @@
 
 ## Script for Single Phenotype Barplotting Based on External Residuals/Raw Data CSV File 
   ## Run the analysis.singlepheno script to obtain the csv used for input into this script
+library(plyr)
 source("misc.R")
 source("read.data.R")
 source("data.manip.R")
@@ -46,6 +47,18 @@ t.test.stats$sig <- as.character(x)
 t.test.stats <- t.test.stats[order(t.test.stats$diff,decreasing = TRUE),]
 rm(i,n,r,x,out)
 
+# Compute phenotype summary statistics stratified by strain and gene
+# (het vs. wild-type).
+compute.pheno.stats <- function (x, i) {
+  x <- x[[i]]
+  n <- sum(!is.na(x))
+  return(c(n    = n,
+           mean = mean(x,na.rm = TRUE),
+           sd   = sd(x,na.rm = TRUE),
+           se   = sd(x,na.rm = TRUE)/sqrt(n)))
+}
+pheno.stats <- ddply(raw.pheno,c(gene,"strain"),compute.pheno.stats,phenotype)
+    
 stop()
 
 # Retrieve the analysis settings.
@@ -131,172 +144,6 @@ outlier.function <- analysis$outlier.function
   out <- analysis$outliers
   prepared.pheno[[phenotype]] <- reduced.pheno[[phenotype]] #This step is necessary if there are covariates and if the data was linearly regressed
   out.rm.pheno <- remove.outliers(prepared.pheno, phenotype, covariates, outlier.function = NULL, out, verbose = TRUE) #not regressed
-  
-  ##########################################################################################################
-  # Exporting
-  ##########################################################################################################
-  
-  #Exporting residuals/raw data for barplotting
-  if (residual == TRUE && transform == TRUE) {
-    if (export.data) {
-      reduced.pheno[[phenotype]] <- out.rm.pheno[[phenotype]]
-      write.csv(reduced.pheno, paste0(phenotype, ".outrm.txf.residual.csv"))
-    }
-  } else if (transform == TRUE && residual == FALSE) {
-    if (export.data) {
-      reduced.pheno[[phenotype]] <- out.rm.pheno[[phenotype]] 
-      write.csv(reduced.pheno, paste0(phenotype, ".outrm.txf.raw.csv"))
-    }
-    
-  } else if (residual == FALSE && transform == FALSE) {
-    if (export.data) {
-      reduced.pheno[[phenotype]] <- out.rm.pheno[[phenotype]] 
-      write.csv(reduced.pheno, paste0(phenotype, ".outrm.raw.csv"))
-    }
-  }
-  
-  ##########################################################################################################
-  #Run GEMMA
-  ##########################################################################################################
-  if (rungemma == TRUE) {
-    # Load packages
-    require(data.table)
-    require(qtl)
-    source("Source/gemma.functions.R")
-    
-    # Location of GEMMA and other paramters
-    gemma.exe <- "/usr/local/src/gemma/bin/gemma"
-    seed      <- 1
-    
-    system("mkdir ~/Desktop/CAC_gemma_output")
-    GENE.INTERACTION <- paste0(GENE, ":strain")
-    system(paste0("mkdir ~/Desktop/CAC_gemma_output/", phenotype))
-    choose <- model.info[[phenotype]]$gemma #Which GEMMAs to run
-    
-    for (choose.samples in choose) {
-      cp0("On ", phenotype, " and ", choose.samples, "\n")
-      
-      gemmadir <- paste0("~/Desktop/CAC_gemma_output/", phenotype, "/", choose.samples)
-      system(paste0("mkdir ", gemmadir))
-      resultsfile <- paste0("~/Desktop/CAC_gemma_output/d3.d2totalactivity/",
-                            phenotype, ".", choose.samples, ".RData")
-      
-      #Rename the dataframe
-      pheno <- out.rm.pheno
-      if (GENE == "CACNA1C") {
-        geno.filename <- "data/mda.F1.lg.csv"
-      } else if (GENE == "TCF7L2") {
-        geno.filename <- "data/mda.F1.csv"
-      }
-      
-      # Remove MA and fix strain name ambiguity
-      pheno <- subset(pheno, strain != "MA")
-      if (GENE == "CACNA1C") {
-        pheno$strain <- as.character.factor(pheno$strain)
-        pheno[["strain"]][which(pheno$strain == "RIIS")] <- rep("RII", length(which(pheno$strain == "RIIS")))
-        pheno$strain <- factor(pheno$strain)
-      }
-      pheno        <- pheno[order(pheno$strain),]
-      pheno$strain <- droplevels(pheno$strain)
-      
-      # Only include samples in the analysis for which the phenotype and all
-      # covariates are observed.
-      cols  <- c(phenotype,covariates)
-      rows  <- which(none.missing.row(pheno[cols]))
-      pheno <- pheno[rows,]
-      
-      # Select either: (1) all samples, (2) hets only, or (3) wild-types
-      # only. Unless all samples are chosen, it is important to exclude
-      # genotype from the set of covariates. If using all samples, then 
-      # the WT/HET should be included as a covariate
-      if (choose.samples == "het") {
-        rows       <- which(pheno[[GENE]] == "HET")
-        pheno      <- pheno[rows,]
-        covariates <- setdiff(covariates, GENE)
-        cat("Selecting",length(rows),"het samples.\n")
-      } else if (choose.samples == "wt") {
-        rows       <- which(pheno[[GENE]] == "WT")
-        pheno      <- pheno[rows,]
-        covariates <- setdiff(covariates, GENE)
-        cat("Selecting",length(rows),"wild-type samples.\n")  
-      } else {
-        covariates <- union(covariates, GENE)
-        cat("Including all (",nrow(pheno),") samples in analysis.\n",sep="")
-      }
-      
-      # Convert some columns to binary covariates.
-      if (GENE == "CACNA1C") {
-        levels(pheno$sex)         <- 0:1
-        levels(pheno$CACNA1C)     <- 0:1
-        levels(pheno$fctimeofday) <- 0:1
-      } else if (GENE == "TCF7L2") {
-        levels(pheno$sex)         <- 0:1
-        levels(pheno$TCF7L2)      <- 0:1
-        levels(pheno$FCtimeofday) <- 0:1
-      } else {
-        stop (cp0("GENE is set to ", GENE, "...it must be either CACNA1C or TCF7L2"))
-      }
-      
-      # LOAD GENOTYPE DATA
-      # ------------------
-      # Load the genotype data, and sort the rows by strain. I convert the
-      # base-pair positions to Megabases (Mb).
-      cat("Loading genotype data.\n")
-      d    <- read.mda.F1(geno.filename)
-      map  <- d$map
-      geno <- d$geno
-      geno <- geno[order(rownames(geno)),]
-      map  <- cbind(data.frame(snp = rownames(map)),map)
-      rownames(map) <- NULL
-      rm(d)
-      
-      # Take out 57L for CAC study
-      if (GENE == "CACNA1C") {
-        which.is.57L <- which(rownames(geno) == "57L")
-        geno <- geno[-which.is.57L, ]
-      }
-      
-      # Drop the sex-linked and mitochondrial DNA from the analysis.
-      markers <- which(is.element(map$chr,1:19))
-      map     <- transform(map[markers,],chr = droplevels(chr))
-      geno    <- geno[,markers]
-      
-      # Also, drop SNPs that are polymorphic in 5 strains or less, because
-      # it is unlikely that we will discover phenotype associations with
-      # these SNPs.
-      markers <- which(pmin(colSums(geno),colSums(1 - geno)) > 5)
-      map     <- map[markers,]
-      geno    <- geno[,markers]
-      
-      # Align the phenotypes and genotypes.
-      geno <- geno[match(pheno$strain,rownames(geno)),]
-      
-      # Initialize the random number generator.
-      set.seed(seed)
-      
-      # Run GEMMA
-      out <- run.gemma(phenotype,covariates,pheno,geno,map,gemmadir,gemma.exe)
-      gwscan.gemma <- out$gwscan
-      pve.gemma    <- out$pve
-      
-      # Save results to file.
-      cat("Saving results to file.\n")
-      save(list = c("analysis","choose.samples","map","gwscan.gemma","pve.gemma"),
-           file = resultsfile)
-    }
-  }
-  
-  
-  #Which Gene
-  if (GENE == "CACNA1C") {
-    pheno.filename <- "data/cac.pheno.29jan2015.csv"
-    csv.filename <- paste0(phenotype,".",type.of.data,".csv")
-    source("Source/cacdefaults.version6.R")
-  } else if (GENE == "TCF7L2") {
-    pheno.filename <- "data/pheno.12may2014.csv"
-    csv.filename <- paste0(phenotype,".",type.of.data,".csv")
-    source("Source/tcfdefaults.version0.R")
-  }
   
   # Create the gene interaction term to be used in ANOVA
   GENE.INTERACTION <- paste0(GENE, ":strain")
