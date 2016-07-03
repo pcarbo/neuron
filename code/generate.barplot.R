@@ -10,11 +10,6 @@ source("misc.R")
 source("read.data.R")
 source("data.manip.R")
 
-# *** TEMPORARY ***
-phenotype <- "fastglucose"
-cohort    <- "tcf7l2"
-gene      <- "TCF7L2"
-
 # Load the phenotype data.
 raw.pheno <- read.pheno(cohort)
 
@@ -74,7 +69,15 @@ if (gene == "TCF7L2") {
 r        <- pheno.stats
 names(r) <- c("gene","x","n","y","sd","se")
 r        <- r[order(r$gene,r$x),]
-r        <- cbind(r,data.frame(sig = c(t.test.stats$sig,rep(" ",n))))
+r        <- cbind(r,data.frame(sig = rep(t.test.stats$sig,2)))
+for (i in strains) {
+  rows <- which(r$x == i)
+  if (r$y[rows[1]] > r$y[rows[2]]) {
+    r[rows[2],"sig"] <- " "
+  } else {
+    r[rows[1],"sig"] <- " "
+  }
+}
 levels(r$gene) <- c("+/+","+/-")
 print(ggplot(r,aes(x,y,fill = gene,label = sig)) +
       geom_bar(stat = "identity",position = position_dodge(width = 0.9),

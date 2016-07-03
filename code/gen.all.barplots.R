@@ -1,5 +1,4 @@
-# Generates the ANOVA results for all phenotypes analyzed in the
-# Tcf7l2 and Cacna1c cohorts.
+# TO DO: Explain here what this script does.
 source("defaults.tcf7l2.R")
 source("defaults.cacna1c.R")
 
@@ -19,7 +18,11 @@ for (cohort in c("tcf7l2","cacna1c")) {
   for (phenotype in names(model.info)) {
     cat("COHORT: ",toupper(cohort),", PHENOTYPE: ",toupper(phenotype),"\n",
         sep="")
-    source("run.anova.analysis.R")
-    cat("\n")
+    source("generate.barplot.R")
+    dev.copy2(file = paste0(cohort,".",phenotype,".pdf"))
+    Sys.sleep(0.01)
+    cat("Press return to continue...\n")
+    readLines("stdin",n = 1)
   }
 }
+
