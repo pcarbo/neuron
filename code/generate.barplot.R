@@ -1,15 +1,53 @@
-# This script will produce bar graphs from CACNA1C or TCF7L2 phenotype data
+# TO DO: Explain here what this script does.
+#
+# This script will produce bar graphs from CACNA1C or TCF7L2 phenotype data.
 
 ## Script for Single Phenotype Barplotting Based on External Residuals/Raw Data CSV File 
   ## Run the analysis.singlepheno script to obtain the csv used for input into this script
-  
-  
 source("misc.R")
 source("read.data.R")
 source("data.manip.R")
-# source("Source/transformation.functions.R")
-# source("Source/bar.graph.functions.LS.R")
-  
+
+# *** TEMPORARY ***
+phenotype <- "fastglucose"
+cohort    <- "tcf7l2"
+gene      <- "TCF7L2"
+
+# Load the phenotype data.
+raw.pheno <- read.pheno(cohort)
+
+# Compute t-test statistics for assessing strain-specific phenotype effects.
+cat("Computing t-test statistics.\n")
+strains      <- levels(raw.pheno$strain)
+n            <- length(strains)
+t.test.stats <- data.frame(wt      = rep(0,n),
+                           het     = rep(0,n),
+                           diff    = rep(0,n),
+                           p.value = rep(0,n),
+                           sig     = rep(as.character(NA),n))
+rownames(t.test.stats) <- strains
+for (i in strains) {
+  r   <- subset(raw.pheno,strain == i)
+  out <- t.test(y ~ x,data.frame(x = r[[gene]],y = r[[phenotype]]))
+  t.test.stats[i,c("wt","het","diff","p.value")] <-
+    with(out,
+         c(estimate["mean in group WT"],
+           estimate["mean in group HET"],
+           estimate["mean in group WT"] - estimate["mean in group HET"],
+           p.value))
+}
+
+# Adds a symbol denoting significance based on the t-test p-value.
+x         <- cut(t.test.stats$p.value,c(-1,0.001,0.01,0.05,0.1,Inf))
+levels(x) <- c("***","**","*","-"," ")
+t.test.stats$sig <- as.character(x)
+         
+# Sort the strains by difference in phenotype means.
+t.test.stats <- t.test.stats[order(t.test.stats$diff,decreasing = TRUE),]
+rm(i,n,r,x,out)
+
+stop()
+
 # Retrieve the analysis settings.
 analysis         <- model.info[[phenotype]]
 transformation   <- analysis$transformation
@@ -23,47 +61,7 @@ outlier.function <- analysis$outlier.function
 # STRAIN.SEX.INTERACTION  <- paste0("strain:sex")
 # THREE.WAY.INTERACTION   <- paste0(GENE, ":strain:sex")
   
-# Load the phenotype data.
-raw.pheno <- read.pheno(cohort)
 
-# Generate additional phenotypes.
-prepared.pheno <- create.new.phenotypes(raw.pheno,cohort)
-
-# Change sex into a binary quantity, and other columns into numeric values.
-prepared.pheno$sex         <- factor(prepared.pheno$sex)
-levels(prepared.pheno$sex) <- c(0, 1)
-prepared.pheno$sex         <- as.numeric(prepared.pheno$sex)
-  
-# if (GENE == "CACNA1C") {
-#   a <- c(25, 75:91)
-#   prepared.pheno[, c(25, 76:92)] <- sapply(prepared.pheno[, a], as.numeric)
-# } else if (GENE == "TCF7L2") {
-#   a <- 76:92
-#   prepared.pheno[, 76:92] <- sapply(prepared.pheno[, a], as.numeric)
-# }
-
-# Transform the selected phenotype, if requested.
-if (apply.transform & !is.null(transformation)) {
-  cat("Applying transformation to ",phenotype,".\n",sep="")
-  prepared.pheno[[phenotype]] <- transformation(prepared.pheno[[phenotype]])
-}
-
-stop()
-
-  #Covariates
-  r2 <- sapply (prepared.pheno, FUN = function(x) {
-    if (is.numeric(x)) {
-      return (cor(x, prepared.pheno[[phenotype]], use = "complete")^2)
-    } else{
-      return (NA)
-    }
-  } )
-  
-  threshold <- 0.02
-  print(r2)
-  print(r2[r2 >= threshold], na.print = "")
-  
-  ##########################################################################################################
   # Regression and the making of "reduced.pheno"
   ##########################################################################################################
   #Run linear model and get residuals if there are covariates, otherwise use raw phenotype values 
@@ -302,22 +300,7 @@ stop()
   
   # Create the gene interaction term to be used in ANOVA
   GENE.INTERACTION <- paste0(GENE, ":strain")
-  
-  # Read
-  read.exported.csv <- function(csv.filename, GENE, verbose = TRUE) {
-    if (verbose) cat(paste0("Reading in csv data from: ", csv.filename, ".\n",
-                            "Converting genotype column to factor.\n"))
-    csv.data <- read.csv(csv.filename, header = TRUE)
-    csv.data[, which(colnames(csv.data) == GENE)] <- factor(csv.data[[GENE]], c("WT", "HET"))
-    return(csv.data)
-  }
-  
-  csv.data <- read.exported.csv(csv.filename = csv.filename, GENE = GENE, verbose = TRUE)
-  
-  # T-Test
-  t.test.data <- perform.t.tests(csv.data, phenotype, GENE)
-  print(t.test.data)
-  
+
   # Formatted data
   group.variables <- c(GENE, type.of.interaction)
   
@@ -347,28 +330,5 @@ stop()
   produce.graph(phenotype, formatted.data, type.of.data = type.of.data, 
                 type.of.interaction = type.of.interaction, xaxis.order = xaxis.order,
                 normalized = normalized, annotations = annotations, GENE = GENE)
-  
-  
-  # Exporting as PNG
-  if (type.of.data == "outrm.raw") {
-    png(filename=paste0(phenotype, ".", GENE, ".outrm.raw.barplot.png"), width = 1500, height = 600)
-    produce.graph(phenotype, formatted.data, type.of.data = type.of.data, 
-                  type.of.interaction = type.of.interaction, xaxis.order = xaxis.order,
-                  normalized = normalized, annotations = annotations, GENE = GENE)
-    dev.off()
-  } else if (type.of.data == "outrm.txf.raw") {
-    png(filename=paste0(phenotype, ".", GENE, ".outrm.txf.raw.barplot.png"), width = 1500, height = 600)
-    produce.graph(phenotype, formatted.data, type.of.data = type.of.data, 
-                  type.of.interaction = type.of.interaction, xaxis.order = xaxis.order,
-                  normalized = normalized, annotations = annotations, GENE = GENE)
-    dev.off()
-  } else if (type.of.data == "outrm.txf.residual") {
-    png(filename=paste0(phenotype, ".", GENE, ".outrm.txf.residual.barplot.png"), width = 1500, height = 600)
-    produce.graph(phenotype, formatted.data, type.of.data = type.of.data, 
-                  type.of.interaction = type.of.interaction, xaxis.order = xaxis.order,
-                  normalized = normalized, annotations = annotations, GENE = GENE)
-    dev.off()
-  }
-  
   
   
