@@ -10,8 +10,19 @@ source("misc.R")
 source("read.data.R")
 source("data.manip.R")
 
+# Retrieve the analysis settings.
+analysis <- model.info[[phenotype]]
+outliers <- analysis$outliers
+
 # Load the phenotype data.
 raw.pheno <- read.pheno(cohort)
+
+# Remove specified outlying data points.
+if (length(outliers) > 0) {
+  to.remove <- match(outliers,raw.pheno$id)
+  raw.pheno[to.remove,phenotype] <- NA
+  cat("Removed ",length(to.remove)," outliers for ",phenotype,".\n",sep="")
+}
 
 # Compute t-test statistics for assessing strain-specific phenotype effects.
 cat("Computing t-test statistics.\n")
