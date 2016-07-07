@@ -1,4 +1,5 @@
-# TO DO: Explain here what this script does.
+# Generates bar charts summarizing all the phenotype data collected in
+# the Tcf7l2 and Cacna1c cohorts.
 source("defaults.tcf7l2.R")
 source("defaults.cacna1c.R")
 
@@ -19,7 +20,11 @@ for (cohort in c("tcf7l2","cacna1c")) {
     cat("COHORT: ",toupper(cohort),", PHENOTYPE: ",toupper(phenotype),"\n",
         sep="")
     source("generate.barplot.R")
-    dev.copy2pdf(file = paste0(cohort,".",phenotype,".pdf"))
+    #
+    # Uncomment this line to save the bar charts as PDFs:
+    # 
+    #   dev.copy2pdf(file = paste0(cohort,".",phenotype,".pdf"))
+    #
     Sys.sleep(0.01)
     cat("Press return to continue...\n")
     readLines("stdin",n = 1)

@@ -1,9 +1,6 @@
-# TO DO: Explain here what this script does.
-#
-# This script will produce bar graphs from CACNA1C or TCF7L2 phenotype data.
-
-## Script for Single Phenotype Barplotting Based on External Residuals/Raw Data CSV File 
-  ## Run the analysis.singlepheno script to obtain the csv used for input into this script
+# Generates a bar chart summarizing the phenotype data collected in
+# either the Tcf7l2 or Cacna1c cohort. For more details, see
+# gen.all.barplots.R.
 library(plyr)
 library(ggplot2)
 source("misc.R")
