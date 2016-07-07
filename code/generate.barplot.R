@@ -42,9 +42,9 @@ for (i in strains) {
            p.value))
 }
 
-# Adds a symbol denoting significance based on the t-test p-value.
-x         <- cut(t.test.stats$p.value,c(-1,0.001,0.01,0.05,0.1,Inf))
-levels(x) <- c("***","**","*","-"," ")
+# Add symbols indicating significance based on t-test p-values.
+x                <- cut(t.test.stats$p.value,c(-1,0.001,0.01,0.05,0.1,Inf))
+levels(x)        <- c("***","**","*","-"," ")
 t.test.stats$sig <- as.character(x)
          
 # Compute phenotype summary statistics stratified by strain and gene
@@ -73,7 +73,8 @@ if (gene == "TCF7L2") {
   legend.title <- expression(italic(Cacna1c) ~ genotype)
 }
   
-# Generate the bar chart using ggplot2.
+# Generate the bar chart using ggplot2, with the individual strains
+# annotated with their significance level (***, **, etc).
 r        <- pheno.stats
 names(r) <- c("gene","x","n","y","sd","se")
 r        <- r[order(r$gene,r$x),]
