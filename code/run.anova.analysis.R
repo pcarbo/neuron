@@ -46,6 +46,13 @@ three.way.interaction   <- paste0(gene,":strain:sex")
 
 # Fit a linear regression model for phenotype ~ covariates + strain +
 # interaction terms.
+#
+# If you would like to see the full p-value instead of just <2.2e-16
+# when the p-value is very small, replace print(out.anova) with
+#
+#   class(out.anova) <- "data.frame"
+#   print(out.anova,digits = 3)
+#
 cat("Fitting linear regression and running ANOVA.\n")
 f <- paste(phenotype,"~",paste(covariates,collapse=" + "),
            "+ strain + sex +",gene.strain.interaction,"+",
