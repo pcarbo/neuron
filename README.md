@@ -1,7 +1,7 @@
 # neuron
 
 Code and data implementing statistical analyses for *Neuron*
-manuscript, "Should single strains suffice?"
+manuscript, "Should single strains suffice: an inconvenient truth."
 
 ### Overview
 
@@ -35,8 +35,8 @@ If the data or code in this repository is useful for your research
 project, please cite our paper:
 
 L. J. Sittig, P. Carbonetto, K. A. Engel, K. S. Krauss, C.
-Barrios-Camacho & A. A. Palmer. Should single strains suffice?
-Submitted to *Neuron*.
+Barrios-Camacho & A. A. Palmer. Should single strains suffice: an
+inconvenient truth. Submitted to *Neuron*.
 
 ###Code and data licenses
 
