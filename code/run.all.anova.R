@@ -20,6 +20,15 @@ for (cohort in c("tcf7l2","cacna1c")) {
     cat("COHORT: ",toupper(cohort),", PHENOTYPE: ",toupper(phenotype),"\n",
         sep="")
     source("run.anova.analysis.R")
+
+    # These lines are what we used to compute the proportion of
+    # variance exlpained by the gene:strain effect in the ANOVA
+    # analysis:
+    #
+    #    x <- out.anova[["Sum Sq"]]
+    #    print(round(cbind(out.anova[c("Sum Sq")],
+    #                      data.frame(PVE=100*x/sum(x))),digits = 3))
+    #
     cat("\n")
   }
 }
