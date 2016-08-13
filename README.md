@@ -1,7 +1,8 @@
 # neuron
 
 Code and data implementing statistical analyses for *Neuron*
-manuscript, "Should single strains suffice: an inconvenient truth."
+publication, "Genetic background limits generalizability of
+genotype-phenotype relationships."
 
 ### Overview
 
@@ -35,8 +36,9 @@ If the data or code in this repository is useful for your research
 project, please cite our paper:
 
 L. J. Sittig, P. Carbonetto, K. A. Engel, K. S. Krauss, C.
-Barrios-Camacho & A. A. Palmer. Should single strains suffice: an
-inconvenient truth. Submitted to *Neuron*.
+Barrios-Camacho & A. A. Palmer. Genetic background limits
+generalizability of genotype-phenotype relationships. To appear in
+*Neuron*.
 
 ###Code and data licenses
 
