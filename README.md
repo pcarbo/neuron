@@ -63,9 +63,9 @@ The two main R scripts are
 [gen.all.barplots.R](code/gen.all.barplots.R) and
 [run.all.anova.R](code/run.all.anova.R). Running these two scripts
 will reproduce all the bar charts and ANOVA results given in the
-paper. The ANOVA script requires that the
-[plyr](http://plyr.had.co.nz) and [ggplot2](http://ggplot2.org)
-packages be installed on your computer.
+paper. Script [gen.all.barplots.R](code/gen.all.barplots.R) requires
+that the [plyr](http://plyr.had.co.nz) and
+[ggplot2](http://ggplot2.org) packages be installed on your computer.
 
 ### Physiological and behavioral trait data
 
