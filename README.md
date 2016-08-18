@@ -110,17 +110,19 @@ field testing.
 + pctdurlight: Proportion of total time spent in the light half of the
 light/dark box.
 
-+ totalactivity: Total activity measured during the 30-min open field
-test.
++ totalactivity: Exploratory activity measured during the 30-min open
+field test.
 
-+ d1totalactivity: Total activity measured during day 1 of the 30-min
-open field test.
++ d1totalactivity: Exploratory activity measured during day 1 of the
+30-min open field test.
 
-+ d2totalactivity: Total activity measured during day 2 of the 30-min
-open field test.
++ d2totalactivity: Exploratory activity measured during day 2 of the
+30-min open field test.
 
-+ d3.d2totalactivity: Total activity measured on day 3 of the 30-min
-open field test, after methamphetamine injection.
++ d3.d2totalactivity: Exploratory activity measured on day 3 of the
+30-min open field test (after methamphetamine injection) minus
+exploratory activity measured on day 2 of the 30-min open field test
+(after saline injection).
 
 + FCtimeofday: Time of day in which fear conditioning test was
 conducted (either "AM" or "PM").
