@@ -162,10 +162,16 @@ R code and the results presented in the paper:
 | ------------- | ------------- |
 | Percent time in the light box | pctdurlight  |
 | Exploratory activity | d1totalactivity |
+| Duration in center | d1centerdur |
+| Methamphetamine sensitivity | d3.d2totalactivity |
+| Immobility | immobdur |
+| Acoustic startle response | startle |
 
 **Tcf7l2 cohort** ([pheno.tcf7l2.csv](data/pheno.tcf7l2.csv))
 
-*Table goes here.*
+| phenotype name in manuscript (Table 1)  | phenotype name in repository |
+| ------------- | ------------- |
+
 
 ### Contents
 
