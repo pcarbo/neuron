@@ -160,18 +160,26 @@ R code and the results presented in the paper:
 
 | phenotype name in manuscript (Table 1)  | phenotype name in repository |
 | ------------- | ------------- |
-| Percent time in the light box | pctdurlight  |
-| Exploratory activity | d1totalactivity |
-| Duration in center | d1centerdur |
-| Methamphetamine sensitivity | d3.d2totalactivity |
-| Immobility | immobdur |
-| Acoustic startle response | startle |
+| percent time in the light box | pctdurlight  |
+| exploratory activity | d1totalactivity |
+| duration in center | d1centerdur |
+| methamphetamine sensitivity | d3.d2totalactivity |
+| immobility | immobdur |
+| acoustic startle response | startle |
 
 **Tcf7l2 cohort** ([pheno.tcf7l2.csv](data/pheno.tcf7l2.csv))
 
 | phenotype name in manuscript (Table 1)  | phenotype name in repository |
 | ------------- | ------------- |
-
+| body weight | bw2 |
+| exploratory activity | totalactivity |
+| duration in center | centerduration |
+| contextual fear learning | d2context |
+| cued fear learning | d3tone |
+| acoustic startle response | PPIstartle |
+| prepulse inhibition | PPI6 |
+| fasting blood glucose levels | fastglucose |
+| baseline blood glucose levels | baseglucose |
 
 ### Contents
 
