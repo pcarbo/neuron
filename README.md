@@ -38,8 +38,8 @@ project, please cite our paper:
 L. J. Sittig, P. Carbonetto, K. A. Engel, K. S. Krauss, C.
 Barrios-Camacho and A. A. Palmer (2016). 
 [Genetic background limits generalizability of genotype-phenotype
-relationships.](http://www.cell.com/neuron/fulltext/S0896-6273(16)30505-0)
-[*Neuron*](http://www.cell.com/neuron) **91**, 1253--1259. 
+relationships](http://www.cell.com/neuron/fulltext/S0896-6273(16)30505-0).
+*Neuron* **91**, 1253--1259. 
 
 ###Code and data licenses
 
