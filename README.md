@@ -41,7 +41,7 @@ Barrios-Camacho and A. A. Palmer (2016).
 relationships](http://www.cell.com/neuron/fulltext/S0896-6273(16)30505-0).
 *Neuron* **91**, 1253--1259. 
 
-###Code and data licenses
+### Code and data licenses
 
 All files in the [code](code) folder are free software: you can
 redistribute them under the terms of the
